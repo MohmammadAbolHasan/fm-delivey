@@ -1,0 +1,87 @@
+/* =========================================================
+   FM Delivery Management System
+   Arabic RTL
+   ========================================================= */
+
+body.rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Sidebar */
+body.rtl .main-sidebar {
+    right: 0 !important;
+    left: auto !important;
+}
+
+/* Main content */
+body.rtl .content-wrapper,
+body.rtl .main-footer,
+body.rtl .main-header {
+    margin-right: 250px;
+    margin-left: 0;
+}
+
+/* Sidebar */
+body.rtl .nav-sidebar {
+    padding-right: 0;
+}
+
+body.rtl .nav-sidebar .nav-link {
+    text-align: right;
+}
+
+body.rtl .nav-sidebar .nav-icon {
+    margin-left: .5rem;
+    margin-right: 0;
+}
+
+/* Content */
+body.rtl .content-header,
+body.rtl .content {
+    text-align: right;
+}
+
+/* Cards */
+body.rtl .card-header,
+body.rtl .card-body {
+    text-align: right;
+}
+
+/* Tables */
+body.rtl table th,
+body.rtl table td {
+    text-align: right;
+}
+
+/* Forms */
+body.rtl .form-control,
+body.rtl select,
+body.rtl textarea {
+    text-align: right;
+}
+
+/* Dropdown */
+body.rtl .dropdown-menu {
+    text-align: right;
+}
+
+/* Alerts */
+body.rtl .alert {
+    text-align: right;
+}
+
+/* Buttons */
+body.rtl .btn {
+    direction: rtl;
+}
+
+body.rtl .btn i {
+    margin-left: 5px;
+    margin-right: 0;
+}
+
+/* Pagination */
+body.rtl .pagination {
+    padding-right: 0;
+}

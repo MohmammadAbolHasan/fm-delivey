@@ -1,0 +1,111 @@
+/* =========================================================
+   Arabic RTL
+   ========================================================= */
+
+html[dir="rtl"] body {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Sidebar */
+html[dir="rtl"] .main-sidebar {
+    right: 0;
+    left: auto;
+}
+
+html[dir="rtl"] .content-wrapper,
+html[dir="rtl"] .main-footer,
+html[dir="rtl"] .main-header {
+    margin-right: 250px;
+    margin-left: 0;
+}
+
+/* Navbar */
+html[dir="rtl"] .navbar-nav {
+    padding-right: 0;
+}
+
+html[dir="rtl"] .navbar-nav.ml-auto {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
+
+/* Sidebar menu */
+html[dir="rtl"] .nav-sidebar {
+    padding-right: 0;
+}
+
+html[dir="rtl"] .nav-sidebar .nav-link {
+    text-align: right;
+}
+
+html[dir="rtl"] .nav-sidebar .nav-icon {
+    margin-left: .5rem;
+    margin-right: 0;
+}
+
+/* Submenu */
+html[dir="rtl"] .nav-treeview {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+/* Content */
+html[dir="rtl"] .content-header {
+    text-align: right;
+}
+
+/* Cards */
+html[dir="rtl"] .card-header,
+html[dir="rtl"] .card-body {
+    text-align: right;
+}
+
+/* Tables */
+html[dir="rtl"] table th,
+html[dir="rtl"] table td {
+    text-align: right;
+}
+
+/* Forms */
+html[dir="rtl"] .form-control,
+html[dir="rtl"] .custom-select,
+html[dir="rtl"] select {
+    text-align: right;
+}
+
+/* Buttons */
+html[dir="rtl"] .btn {
+    direction: rtl;
+}
+
+/* Alerts */
+html[dir="rtl"] .alert {
+    text-align: right;
+}
+
+/* Breadcrumb */
+html[dir="rtl"] .breadcrumb {
+    padding-right: 0;
+}
+
+/* Dropdowns */
+html[dir="rtl"] .dropdown-menu {
+    text-align: right;
+}
+
+/* Pagination */
+html[dir="rtl"] .pagination {
+    padding-right: 0;
+}
+
+/* Search */
+html[dir="rtl"] input::placeholder {
+    text-align: right;
+}
+
+/* Keep icons positioned nicely */
+html[dir="rtl"] .btn i {
+    margin-left: 4px;
+    margin-right: 0;
+}
