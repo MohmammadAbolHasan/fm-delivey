@@ -25,7 +25,7 @@
 
     <div class="row">
 
-        <div class="col-md-10">
+        <div class="col-md-6 mb-2">
             <input
                 type="text"
                 name="search"
@@ -34,17 +34,27 @@
                 value="{{ request('search') }}">
         </div>
 
-        <div class="col-md-2">
-            <button class="btn btn-primary w-100">
+        <div class="col-md-4 mb-2">
+            <input
+                type="date"
+                name="date"
+                class="form-control"
+                value="{{ request('date') }}">
+        </div>
+
+        <div class="col-md-2 mb-2">
+            <button type="submit"
+                    class="btn btn-primary w-100">
+
                 <i class="fas fa-search"></i>
                 {{ __('search') }}
+
             </button>
         </div>
 
     </div>
 
 </form>
-
 <div class="card">
 
     <div class="card-body">
@@ -60,7 +70,8 @@
                     <th>{{ __('client') }}</th>
                     <th>{{ __('driver') }}</th>
                     <th>{{ __('receiver') }}</th>
-                    <th>{{ __('amount') }}</th>
+                    <th>{{ __('Goods Amount') }}</th>
+                    <th>{{ __('Driver Amount') }}</th>
                     <th>{{ __('status') }}</th>
                     <th>{{ __('date') }}</th>
                     <th style="min-width: 220px;">
@@ -90,7 +101,9 @@
                     <td>
                         ${{ number_format($invoice->amount, 2) }}
                     </td>
-
+                    <td>
+                        ${{ number_format($invoice->driver_amount ?? 0, 2) }}
+                    </td>
                     <td>
 
                         @switch($invoice->status)

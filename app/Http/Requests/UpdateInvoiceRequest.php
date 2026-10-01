@@ -14,11 +14,14 @@ class UpdateInvoiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'invoice_number' => 'required|string|max:255|unique:invoices,invoice_number,' . $this->invoice->id,
+            'invoice_number' =>
+                'required|string|max:255|unique:invoices,invoice_number,' .
+                $this->invoice->id,
 
             'client_id' => 'required|exists:clients,id',
 
-            'driver_id' => 'required|exists:drivers,id',
+            // Driver can be empty
+            'driver_id' => 'nullable|exists:drivers,id',
 
             'receiver_name' => 'required|string|max:255',
 
@@ -26,7 +29,11 @@ class UpdateInvoiceRequest extends FormRequest
 
             'receiver_address' => 'required|string',
 
+            // Goods amount
             'amount' => 'required|numeric|min:0',
+
+            // Driver amount
+            'driver_amount' => 'nullable|numeric|min:0',
 
             'invoice_date' => 'required|date',
 

@@ -12,11 +12,15 @@
 
     <div class="card-body">
 
+        {{-- Filters --}}
         <form method="GET">
 
             <div class="row">
 
-                <div class="col-md-2">
+                {{-- From Date --}}
+                <div class="col-md-2 mb-2">
+                    <label>From Date</label>
+
                     <input
                         type="date"
                         name="from"
@@ -24,7 +28,10 @@
                         value="{{ request('from') }}">
                 </div>
 
-                <div class="col-md-2">
+                {{-- To Date --}}
+                <div class="col-md-2 mb-2">
+                    <label>To Date</label>
+
                     <input
                         type="date"
                         name="to"
@@ -32,7 +39,9 @@
                         value="{{ request('to') }}">
                 </div>
 
-                <div class="col-md-2">
+                {{-- Client --}}
+                <div class="col-md-2 mb-2">
+                    <label>{{ __('client') }}</label>
 
                     <select name="client" class="form-control">
 
@@ -44,19 +53,19 @@
 
                             <option
                                 value="{{ $client->id }}"
-                                {{ request('client') == $client->id ? 'selected' : '' }}>
-
+                                @selected(request('client') == $client->id)
+                            >
                                 {{ $client->name }}
-
                             </option>
 
                         @endforeach
 
                     </select>
-
                 </div>
 
-                <div class="col-md-2">
+                {{-- Driver --}}
+                <div class="col-md-2 mb-2">
+                    <label>{{ __('driver') }}</label>
 
                     <select name="driver" class="form-control">
 
@@ -68,19 +77,19 @@
 
                             <option
                                 value="{{ $driver->id }}"
-                                {{ request('driver') == $driver->id ? 'selected' : '' }}>
-
+                                @selected(request('driver') == $driver->id)
+                            >
                                 {{ $driver->name }}
-
                             </option>
 
                         @endforeach
 
                     </select>
-
                 </div>
 
-                <div class="col-md-2">
+                {{-- Status --}}
+                <div class="col-md-2 mb-2">
+                    <label>{{ __('status') }}</label>
 
                     <select name="status" class="form-control">
 
@@ -88,33 +97,49 @@
                             {{ __('all_status') }}
                         </option>
 
-                        <option value="Pending">
+                        <option
+                            value="Pending"
+                            @selected(request('status') == 'Pending')
+                        >
                             {{ __('pending') }}
                         </option>
 
-                        <option value="Done">
+                        <option
+                            value="Done"
+                            @selected(request('status') == 'Done')
+                        >
                             {{ __('done') }}
                         </option>
 
-                        <option value="Rejected">
+                        <option
+                            value="Rejected"
+                            @selected(request('status') == 'Rejected')
+                        >
                             {{ __('rejected') }}
                         </option>
 
-                        <option value="Delayed">
+                        <option
+                            value="Delayed"
+                            @selected(request('status') == 'Delayed')
+                        >
                             {{ __('delayed') }}
                         </option>
 
                     </select>
-
                 </div>
 
-                <div class="col-md-2">
+                {{-- Search Button --}}
+                <div class="col-md-2 mb-2">
+                    <label>&nbsp;</label>
 
-                    <button class="btn btn-primary w-100">
+                    <button
+                        type="submit"
+                        class="btn btn-primary w-100">
+
                         <i class="fas fa-search"></i>
                         {{ __('search') }}
-                    </button>
 
+                    </button>
                 </div>
 
             </div>
@@ -123,24 +148,79 @@
 
         <hr>
 
-        <h4>
-            {{ __('total_revenue') }}:
-            <strong>
-                ${{ number_format($totalRevenue, 2) }}
-            </strong>
-        </h4>
 
-        <table class="table table-bordered mt-3">
+        {{-- Totals --}}
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="card bg-light">
+                    <div class="card-body text-center">
+
+                        <strong>Amount</strong>
+
+                        <h4 class="mt-2 mb-0">
+                            ${{ number_format($totalGoodsAmount, 2) }}
+                        </h4>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="card bg-light">
+                    <div class="card-body text-center">
+
+                        <strong>Delivery Amount</strong>
+
+                        <h4 class="mt-2 mb-0">
+                            ${{ number_format($totalDeliveryAmount, 2) }}
+                        </h4>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="card bg-light">
+                    <div class="card-body text-center">
+
+                        <strong>Total Amount</strong>
+
+                        <h4 class="mt-2 mb-0">
+                            ${{ number_format($grandTotal, 2) }}
+                        </h4>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        {{-- Invoices Table --}}
+        <table class="table table-bordered table-hover mt-3">
 
             <thead>
 
                 <tr>
 
                     <th>{{ __('invoice') }}</th>
+
+                    <th>{{ __('date') }}</th>
+
                     <th>{{ __('client') }}</th>
+
                     <th>{{ __('driver') }}</th>
+
                     <th>{{ __('status') }}</th>
-                    <th>{{ __('amount') }}</th>
+
+                    <th>Amount</th>
+
+                    <th>Delivery Amount</th>
+
+                    <th>Total</th>
 
                 </tr>
 
@@ -152,16 +232,27 @@
 
                 <tr>
 
-                    <td>{{ $invoice->invoice_number }}</td>
+                    {{-- Invoice --}}
+                    <td>
+                        {{ $invoice->invoice_number }}
+                    </td>
 
+                    {{-- Date --}}
+                    <td>
+                        {{ $invoice->invoice_date }}
+                    </td>
+
+                    {{-- Client --}}
                     <td>
                         {{ $invoice->client->name ?? '-' }}
                     </td>
 
+                    {{-- Driver --}}
                     <td>
                         {{ $invoice->driver->name ?? '-' }}
                     </td>
 
+                    {{-- Status --}}
                     <td>
 
                         @switch($invoice->status)
@@ -197,8 +288,26 @@
 
                     </td>
 
+                    {{-- Goods Amount --}}
                     <td>
-                        ${{ number_format($invoice->amount, 2) }}
+                        ${{ number_format($invoice->amount ?? 0, 2) }}
+                    </td>
+
+                    {{-- Delivery Amount --}}
+                    <td>
+                        ${{ number_format($invoice->driver_amount ?? 0, 2) }}
+                    </td>
+
+                    {{-- Total Invoice --}}
+                    <td>
+                        <strong>
+                            ${{ number_format(
+                                ($invoice->amount ?? 0)
+                                +
+                                ($invoice->driver_amount ?? 0),
+                                2
+                            ) }}
+                        </strong>
                     </td>
 
                 </tr>
@@ -206,7 +315,7 @@
             @empty
 
                 <tr>
-                    <td colspan="5" class="text-center">
+                    <td colspan="8" class="text-center">
                         {{ __('no_invoices_found') }}
                     </td>
                 </tr>

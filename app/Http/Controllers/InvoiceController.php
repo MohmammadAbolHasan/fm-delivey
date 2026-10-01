@@ -16,23 +16,45 @@ public function index(Request $request)
 {
     $query = Invoice::with(['client', 'driver']);
 
+    // Normal search
     if ($request->filled('search')) {
 
         $search = $request->search;
 
-        $query->where('invoice_number', 'like', "%{$search}%")
-              ->orWhereDate('invoice_date', $search)
-              ->orWhereHas('client', function ($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%");
-              })
-              ->orWhereHas('driver', function ($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%");
-              });
+        $query->where(function ($q) use ($search) {
+
+            $q->where('invoice_number', 'like', "%{$search}%")
+                ->orWhere('receiver_name', 'like', "%{$search}%")
+                ->orWhere('receiver_phone', 'like', "%{$search}%")
+                ->orWhereHas('client', function ($clientQuery) use ($search) {
+                    $clientQuery->where('name', 'like', "%{$search}%");
+                })
+                ->orWhereHas('driver', function ($driverQuery) use ($search) {
+                    $driverQuery->where('name', 'like', "%{$search}%");
+                });
+
+        });
     }
 
-    $invoices = $query->latest()->paginate(15);
+    // Search by date
+    if ($request->filled('date')) {
+        $query->whereDate('invoice_date', $request->date);
+    }
 
-    return view('invoices.index', compact('invoices'));
+    // Totals for all filtered invoices
+    $totalGoodsAmount = (clone $query)->sum('amount');
+    $totalDriverAmount = (clone $query)->sum('driver_amount');
+
+    $invoices = $query
+        ->orderByDesc('invoice_date')
+        ->paginate(15)
+        ->withQueryString();
+
+    return view('invoices.index', compact(
+        'invoices',
+        'totalGoodsAmount',
+        'totalDriverAmount'
+    ));
 }
     public function create()
     {

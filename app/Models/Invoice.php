@@ -17,6 +17,7 @@ class Invoice extends Model
         'receiver_phone',
         'receiver_address',
         'amount',
+        'driver_amount',
         'invoice_date',
         'status',
         'notes',
